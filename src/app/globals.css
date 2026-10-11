@@ -128,3 +128,17 @@
     @apply font-sans;
   }
 }
+
+[data-sonner-toast] [data-description] {
+  color: var(--muted-foreground) !important;
+}
+
+[data-sonner-toast] [data-title] {
+  color: var(--foreground) !important;
+}
+
+[data-sonner-toast] {
+  background: var(--popover) !important;
+  color: var(--popover-foreground) !important;
+  border-color: var(--border) !important;
+}

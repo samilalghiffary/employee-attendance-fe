@@ -1,22 +1,43 @@
+import type { UserProfile } from "@/types/auth";
 import { create } from "zustand";
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: "ADMIN" | "EMPLOYEE";
-}
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface AuthState {
-  user: User | null;
+  user: UserProfile | null;
+  token: string | null;
   isAuthenticated: boolean;
-  setUser: (user: User | null) => void;
+  setAuth: (user: UserProfile, token: string) => void;
+  setUser: (user: UserProfile | null) => void;
   logout: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  isAuthenticated: false,
-  setUser: (user) => set({ user, isAuthenticated: !!user }),
-  logout: () => set({ user: null, isAuthenticated: false }),
-}));
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
+      isAuthenticated: false,
+      setAuth: (user, token) =>
+        set({
+          user,
+          token,
+          isAuthenticated: true,
+        }),
+      setUser: (user) =>
+        set({
+          user,
+          isAuthenticated: !!user,
+        }),
+      logout: () =>
+        set({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+        }),
+    }),
+    {
+      name: "auth-storage",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);

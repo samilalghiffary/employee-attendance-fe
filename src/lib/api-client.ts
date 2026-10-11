@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/stores/use-auth-store";
 import axios from "axios";
 
 export const apiClient = axios.create({
@@ -5,12 +6,32 @@ export const apiClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 10000,
+  timeout: 5000,
 });
+
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = useAuthStore.getState().token;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    if (error.response?.status === 401) {
+      useAuthStore.getState().logout();
+      if (
+        typeof window !== "undefined" &&
+        !window.location.pathname.startsWith("/login")
+      ) {
+        window.location.replace("/login");
+      }
+    }
     const message = error.response?.data?.message || error.message || "An error occurred";
     return Promise.reject(new Error(message));
   }

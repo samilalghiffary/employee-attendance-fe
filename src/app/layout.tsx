@@ -1,4 +1,5 @@
 import { Providers } from "@/components/providers";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { DM_Sans, Outfit } from "next/font/google";
@@ -36,8 +37,11 @@ export default function RootLayout({
         outfit.variable
       )}
     >
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-        <Providers>{children}</Providers>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        <Providers>
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
