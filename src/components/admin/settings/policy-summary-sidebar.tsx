@@ -38,33 +38,33 @@ export function PolicySummarySidebar({
   return (
     <div className="lg:col-span-4 flex flex-col gap-6">
       <Card className="border-border shadow-sm">
-        <CardHeader className="pb-3 border-b border-border/50">
+        <CardHeader className="border-b border-border/50 pb-3">
           <div className="flex items-center gap-2">
             <CalendarCheck className="size-4 text-primary" />
             <CardTitle className="text-sm font-semibold">Policy Summary</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="pt-4 space-y-4 text-xs">
-          <div className="flex items-center justify-between py-1 border-b border-border/40">
+        <CardContent className="divide-y divide-border/40 text-xs">
+          <div className="flex items-center justify-between py-2.5">
             <span className="text-muted-foreground">Standard Shift Hours</span>
             <span className="font-mono font-medium text-foreground">
               {startTime} - {endTime}
             </span>
           </div>
 
-          <div className="flex items-center justify-between py-1 border-b border-border/40">
+          <div className="flex items-center justify-between py-2.5">
             <span className="text-muted-foreground">Shift Work Duration</span>
             <span className="font-medium text-foreground">{duration}</span>
           </div>
 
-          <div className="flex items-center justify-between py-1 border-b border-border/40">
+          <div className="flex items-center justify-between py-2.5">
             <span className="text-muted-foreground">Tolerance Window</span>
             <span className="font-mono font-medium text-foreground">
               +{toleranceMinutes} mins
             </span>
           </div>
 
-          <div className="flex items-center justify-between py-1">
+          <div className="flex items-center justify-between py-2.5">
             <span className="text-muted-foreground">Enforcement Status</span>
             <Badge
               variant="outline"

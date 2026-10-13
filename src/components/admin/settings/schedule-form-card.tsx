@@ -57,8 +57,8 @@ export function ScheduleFormCard({
 
   return (
     <form onSubmit={onSubmit} noValidate className="lg:col-span-8 flex flex-col">
-      <Card className="border-border shadow-sm">
-        <CardHeader className="pb-4 border-b border-border/50">
+      <Card className="border-border shadow-sm pb-0">
+        <CardHeader className="border-b border-border/50 pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="p-2 rounded-lg bg-primary/10 text-primary">
@@ -145,7 +145,7 @@ export function ScheduleFormCard({
           </div>
         </CardContent>
 
-        <CardFooter className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-border/60 py-4 bg-muted/20">
+        <CardFooter className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-border/60 py-3 bg-muted/20">
           <div className="flex items-center gap-2 text-xs text-muted-foreground w-full sm:w-auto">
             <ShieldCheck className="size-4 text-emerald-500 shrink-0" />
             <span>Modifications take effect immediately for new employee logs.</span>
