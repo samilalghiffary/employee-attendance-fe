@@ -1,6 +1,6 @@
 "use client";
 
-import { FormInputField } from "@/components/form-input-field";
+import { FormInputField } from "@/components/input";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,6 +13,7 @@ import {
 import { FieldGroup } from "@/components/ui/field";
 import { useLogin } from "@/hooks/use-auth";
 import { loginSchema, type LoginFormData } from "@/lib/validations/auth";
+import { getDefaultValues } from "@/lib/validations/defaults";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -22,10 +23,7 @@ export default function LoginPage() {
 
   const { control, handleSubmit } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: getDefaultValues(loginSchema),
   });
 
   const onSubmit = (data: LoginFormData) => {
@@ -45,10 +43,10 @@ export default function LoginPage() {
           <CardContent>
             <FieldGroup>
               <FormInputField
-                control={control}
                 name="email"
                 type="email"
                 label="Email"
+                control={control}
                 autoComplete="email"
                 disabled={isPending}
                 placeholder="name@company.com"

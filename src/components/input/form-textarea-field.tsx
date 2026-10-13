@@ -1,7 +1,7 @@
 "use client";
 
 import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import * as React from "react";
 import {
   useController,
@@ -10,17 +10,17 @@ import {
   type FieldValues,
 } from "react-hook-form";
 
-export interface FormInputFieldProps<
+export interface FormTextareaFieldProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> extends Omit<React.ComponentProps<typeof Input>, "name" | "defaultValue"> {
+> extends Omit<React.ComponentProps<typeof Textarea>, "name" | "defaultValue"> {
   control: Control<TFieldValues>;
   name: TName;
-  label?: string;
-  description?: string;
+  label?: React.ReactNode;
+  description?: React.ReactNode;
 }
 
-export function FormInputField<
+export function FormTextareaField<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
@@ -30,8 +30,9 @@ export function FormInputField<
   description,
   id,
   disabled,
+  rows = 3,
   ...props
-}: FormInputFieldProps<TFieldValues, TName>) {
+}: FormTextareaFieldProps<TFieldValues, TName>) {
   const {
     field,
     fieldState: { error, invalid },
@@ -45,7 +46,8 @@ export function FormInputField<
   return (
     <Field data-invalid={invalid || undefined} data-disabled={disabled || undefined}>
       {label && <FieldLabel htmlFor={inputId}>{label}</FieldLabel>}
-      <Input
+      <Textarea
+        rows={rows}
         {...props}
         {...field}
         id={inputId}
