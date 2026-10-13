@@ -169,8 +169,9 @@ export function AttendanceLocationDialog({
 
           {hasCurrentCoords && (
             <Button
-              variant="outline"
               size="xs"
+              variant="outline"
+              nativeButton={false}
               className="gap-1.5 self-start sm:self-auto cursor-pointer"
               render={
                 <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" />
