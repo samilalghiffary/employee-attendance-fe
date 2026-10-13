@@ -54,6 +54,7 @@ export interface AdminAttendanceQuery {
 export interface AttendanceSummaryQuery {
   startDate?: string;
   endDate?: string;
+  userId?: string;
 }
 
 export interface AttendanceSummaryMetrics {

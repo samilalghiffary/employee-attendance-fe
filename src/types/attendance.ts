@@ -81,3 +81,19 @@ export interface PaginatedAttendanceResponse {
   data: AttendanceItem[];
   meta: PaginationMeta;
 }
+
+export interface MyAttendanceSummaryData {
+  totalRecords: number;
+  present: number;
+  late: number;
+  absent: number;
+  lateMinutes: number;
+  earlyLeaveMinutes: number;
+  onTimeRate: string;
+}
+
+export interface MyAttendanceSummaryResponse {
+  success: boolean;
+  message: string;
+  data: MyAttendanceSummaryData;
+}

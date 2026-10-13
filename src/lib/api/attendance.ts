@@ -1,12 +1,13 @@
 import { apiClient } from "@/lib/api-client";
 import type {
-  TodayAttendanceResponse,
+  AttendanceHistoryQuery,
   AttendanceResponse,
   CheckInDto,
   CheckOutDto,
-  WorkScheduleResponse,
-  AttendanceHistoryQuery,
+  MyAttendanceSummaryResponse,
   PaginatedAttendanceResponse,
+  TodayAttendanceResponse,
+  WorkScheduleResponse,
 } from "@/types/attendance";
 
 export const attendanceApi = {
@@ -30,10 +31,28 @@ export const attendanceApi = {
     return res.data;
   },
 
-  getMyHistory: async (query: AttendanceHistoryQuery): Promise<PaginatedAttendanceResponse> => {
-    const res = await apiClient.get<PaginatedAttendanceResponse>("/attendance/my-history", {
-      params: query,
-    });
+  getMyHistory: async (
+    query: AttendanceHistoryQuery
+  ): Promise<PaginatedAttendanceResponse> => {
+    const res = await apiClient.get<PaginatedAttendanceResponse>(
+      "/attendance/my-history",
+      {
+        params: query,
+      }
+    );
+    return res.data;
+  },
+
+  getMySummary: async (query?: {
+    startDate?: string;
+    endDate?: string;
+  }): Promise<MyAttendanceSummaryResponse> => {
+    const res = await apiClient.get<MyAttendanceSummaryResponse>(
+      "/attendance/my-summary",
+      {
+        params: query,
+      }
+    );
     return res.data;
   },
 };

@@ -37,6 +37,7 @@ function AttendanceContent() {
   const { data: summaryData, isLoading: isLoadingSummary } = useAdminAttendanceSummary({
     startDate,
     endDate,
+    userId,
   });
 
   const {

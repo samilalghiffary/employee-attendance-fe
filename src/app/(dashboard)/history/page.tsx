@@ -3,7 +3,7 @@
 import { Suspense, useMemo } from "react";
 
 import { PageHeader } from "@/components/layout";
-import { useMyAttendanceHistory } from "@/hooks/use-attendance";
+import { useMyAttendanceHistory, useMyAttendanceSummary } from "@/hooks/use-attendance";
 import { useUrlParams } from "@/hooks/use-url-params";
 import { DataTable } from "./data-table";
 import { HistoryMetricsGrid } from "./metric-grid";
@@ -33,6 +33,11 @@ function HistoryContent() {
     sortOrder,
   });
 
+  const { data: summaryData, isLoading: isLoadingSummary } = useMyAttendanceSummary({
+    startDate,
+    endDate,
+  });
+
   const records = useMemo(() => data?.data ?? [], [data]);
   const hasFilters = Boolean(startDate || endDate);
 
@@ -43,18 +48,18 @@ function HistoryContent() {
         description="Review your past check-ins, check-outs, and attendance status."
       />
 
-      <HistoryMetricsGrid records={records} isLoading={isLoading} />
+      <HistoryMetricsGrid summary={summaryData?.data} isLoading={isLoadingSummary} />
 
       <DataTable
+        sortBy={sortBy}
         records={records}
         isError={isError}
         isLoading={isLoading}
+        sortOrder={sortOrder}
         isFetching={isFetching}
         hasFilters={hasFilters}
-        sortBy={sortBy}
-        sortOrder={sortOrder}
-        onSortingChange={setSorting}
         onFilterChange={setFilters}
+        onSortingChange={setSorting}
         filters={{ startDate, endDate, limit }}
         onLimitChange={(lim) => update({ limit: String(lim), page: undefined })}
         pagination={{

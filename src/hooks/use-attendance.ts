@@ -1,11 +1,17 @@
-import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { attendanceApi } from "@/lib/api/attendance";
 import type { AttendanceHistoryQuery, CheckInDto, CheckOutDto } from "@/types/attendance";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export const ATTENDANCE_KEYS = {
   today: ["attendance", "today"] as const,
   history: ["attendance", "my-history"] as const,
+  summary: ["attendance", "my-summary"] as const,
   workSchedule: ["settings", "work-schedule"] as const,
 };
 
@@ -13,6 +19,14 @@ export function useMyAttendanceHistory(query: AttendanceHistoryQuery) {
   return useQuery({
     queryKey: [...ATTENDANCE_KEYS.history, query],
     queryFn: () => attendanceApi.getMyHistory(query),
+    placeholderData: keepPreviousData,
+  });
+}
+
+export function useMyAttendanceSummary(query?: { startDate?: string; endDate?: string }) {
+  return useQuery({
+    queryKey: [...ATTENDANCE_KEYS.summary, query],
+    queryFn: () => attendanceApi.getMySummary(query),
     placeholderData: keepPreviousData,
   });
 }

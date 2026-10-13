@@ -1,58 +1,46 @@
 import { AlertTriangle, CheckCircle2, ClockAlert, Timer, XCircle } from "lucide-react";
-import * as React from "react";
 
 import { MetricCard } from "@/components/metric-card";
-import type { AttendanceItem } from "@/types/attendance";
+import type { MyAttendanceSummaryData } from "@/types/attendance";
 
 interface HistoryMetricsGridProps {
-  records: AttendanceItem[];
+  summary?: MyAttendanceSummaryData;
   isLoading?: boolean;
 }
 
 export function HistoryMetricsGrid({
-  records,
+  summary,
   isLoading = false,
 }: HistoryMetricsGridProps) {
-  const summary = React.useMemo(
-    () => ({
-      present: records.filter((r) => r.status === "PRESENT").length,
-      late: records.filter((r) => r.status === "LATE").length,
-      absent: records.filter((r) => r.status === "ABSENT").length,
-      lateMinutes: records.reduce((acc, r) => acc + (r.lateMinutes || 0), 0),
-      earlyLeaveMinutes: records.reduce((acc, r) => acc + (r.earlyLeaveMinutes || 0), 0),
-    }),
-    [records]
-  );
-
   const cards = [
     {
       id: "summary-present",
       label: "Present",
-      value: summary.present,
+      value: summary?.present ?? 0,
       icon: CheckCircle2,
     },
     {
       id: "summary-late",
       label: "Late",
-      value: summary.late,
+      value: summary?.late ?? 0,
       icon: AlertTriangle,
     },
     {
       id: "summary-absent",
       label: "Absent",
-      value: summary.absent,
+      value: summary?.absent ?? 0,
       icon: XCircle,
     },
     {
       id: "summary-late-minutes",
       label: "Late Minutes",
-      value: summary.lateMinutes,
+      value: summary?.lateMinutes ?? 0,
       icon: Timer,
     },
     {
       id: "summary-early-minutes",
       label: "Early Leave Min",
-      value: summary.earlyLeaveMinutes,
+      value: summary?.earlyLeaveMinutes ?? 0,
       icon: ClockAlert,
     },
   ];
