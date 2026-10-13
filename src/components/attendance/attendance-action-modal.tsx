@@ -159,10 +159,10 @@ export function AttendanceActionModal({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="flex items-center justify-between p-3 rounded-lg border border-border/70 bg-muted/30 text-xs">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 p-3 rounded-lg border border-border/70 bg-muted/30 text-xs">
+            <div className="flex items-center gap-2.5 min-w-0">
               <Clock className="size-4 text-primary shrink-0" />
-              <div>
+              <div className="leading-tight">
                 <span className="font-semibold text-foreground">Time Recording: </span>
                 <span className="text-muted-foreground">
                   Recorded automatically via Server Time
@@ -171,21 +171,21 @@ export function AttendanceActionModal({
             </div>
 
             {isCheckIn ? (
-              <div>
+              <div className="self-start sm:self-auto shrink-0 pl-6.5 sm:pl-0">
                 {lateInfo.isLate ? (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-destructive/15 text-destructive border border-destructive/20">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-destructive/15 text-destructive border border-destructive/20 whitespace-nowrap">
                     Late +{lateInfo.lateMinutes}m
                   </span>
                 ) : (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 whitespace-nowrap">
                     On Time
                   </span>
                 )}
               </div>
             ) : (
               earlyCheckoutInfo.isEarly && (
-                <div>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                <div className="self-start sm:self-auto shrink-0 pl-6.5 sm:pl-0">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20 whitespace-nowrap">
                     Early -{earlyCheckoutInfo.earlyMinutes}m
                   </span>
                 </div>
